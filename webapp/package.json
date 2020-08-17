@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "envsub index.js public/index.js",
+    "prestart": "cross-env AD_TRACKER_URI=http://localhost:3000/events/ npm run build",
+    "start": "http-server -p 3001 public"
+  },
+  "devDependencies": {
+    "cross-env": "7.0.2",
+    "envsub": "4.0.7",
+    "http-server": "0.12.3"
+  }
+}

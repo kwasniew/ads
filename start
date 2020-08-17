@@ -1,0 +1,4 @@
+#!/bin/sh
+
+((cd webapp ; npm start;) & (cd ad-tracker; npm start;))
+
