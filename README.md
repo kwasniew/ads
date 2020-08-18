@@ -13,7 +13,8 @@ For Windows users repeat the steps from `install` and `start` scripts manually.
 
 `webapp`: https://web-ads.netlify.app/ (make sure to disable your adblock)
 
-`ad-tracker`: https://adtracker.herokuapp.com/ (this app needs about 30 second to wake up after the first access)
+`ad-tracker`: https://adtracker.herokuapp.com/ (this app needs about 30 second to wake up after the first access and
+cleans database after each deployment)
 
 ## Diagrams and Architecture Decision Records (ADRs)
 
