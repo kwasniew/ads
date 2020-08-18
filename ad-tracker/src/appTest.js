@@ -8,11 +8,13 @@ const { parseISO } = require("date-fns");
 const command = (request) => (eventType) => (ad) =>
   request
     .post("/events")
-    .send({
-      type: eventType,
-      ad,
-    })
-    .set("Content-Type", "application/json");
+    .send(
+      JSON.stringify({
+        type: eventType,
+        ad,
+      })
+    )
+    .set("Content-Type", "text/plain"); // simulate sendBeacon
 
 const getReport = (request) => (day) => request.get(`/events?day=${day}`);
 

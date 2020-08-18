@@ -11,8 +11,8 @@ const trackingRouter = ({ recordEvent, getReport, landing }) => {
   router.post(
     "/events",
     cors(),
-    validateEvent,
     parseSendBeaconBody,
+    validateEvent,
     addIP,
     recordEvent
   );
