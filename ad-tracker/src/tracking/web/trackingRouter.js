@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { validateEventMiddleware } = require("./middleware/validateEvent.js");
+const { validateEvent } = require("./middleware/validateEvent.js");
 const addIP = require("./middleware/addIP.js");
 const parseSendBeaconBody = require("./middleware/parseBeacon.js");
 const cors = require("cors");
@@ -11,8 +11,8 @@ const trackingRouter = ({ recordEvent, getReport, landing }) => {
   router.post(
     "/events",
     cors(),
+    validateEvent,
     parseSendBeaconBody,
-    validateEventMiddleware,
     addIP,
     recordEvent
   );

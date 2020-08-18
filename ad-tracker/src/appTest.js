@@ -14,8 +14,7 @@ const command = (request) => (eventType) => (ad) =>
     })
     .set("Content-Type", "application/json");
 
-const getReport = (request) => (day) =>
-  request.get(`/events?day=${day}`);
+const getReport = (request) => (day) => request.get(`/events?day=${day}`);
 
 const appWithFixedDay = (day) => {
   const clock = fixedClock(parseISO(day));
@@ -54,7 +53,7 @@ describe("Ad tracker app", function () {
     });
   });
 
-  it("rejects invalid events", async function() {
+  it("rejects invalid events", async function () {
     const SOME_DAY = "2020-02-12Z";
     const { app } = appWithFixedDay(SOME_DAY);
     const { invalidEvent, dailyReport } = testActions(app);

@@ -10,33 +10,34 @@ const eventRepository = async (clock) => {
 };
 
 // future idea: copy paste from in memory repo test - consider creating a repo contract test
-process.env.INFLUX_HOST && describe("Influx event repository", function () {
-  it("returns daily report", async function () {
-    this.timeout(10000);
-    const timestamp = realClock.getTime();
-    const clock = fixedClock(timestamp);
-    const repository = await eventRepository(clock);
+process.env.INFLUX_HOST &&
+  describe("Influx event repository", function () {
+    it("returns daily report", async function () {
+      this.timeout(10000);
+      const timestamp = realClock.getTime();
+      const clock = fixedClock(timestamp);
+      const repository = await eventRepository(clock);
 
-    // ignore
-    clock.daysAgo(1);
-    await repository.store({ ad: "http://cloudinary.com", type: "load" });
+      // ignore
+      clock.daysAgo(1);
+      await repository.store({ ad: "http://cloudinary.com", type: "load" });
 
-    // store
-    clock.now();
-    await repository.store({ ad: "http://twitter.com", type: "load" });
-    clock.minutesFromNow(1);
-    await repository.store({ ad: "http://goodreads.com", type: "load" });
-    await repository.store({ ad: "http://twitter.com", type: "click" });
+      // store
+      clock.now();
+      await repository.store({ ad: "http://twitter.com", type: "load" });
+      clock.minutesFromNow(1);
+      await repository.store({ ad: "http://goodreads.com", type: "load" });
+      await repository.store({ ad: "http://twitter.com", type: "click" });
 
-    // ignore
-    clock.daysFromNow(1);
-    await repository.store({ ad: "http://google.com", type: "load" });
+      // ignore
+      clock.daysFromNow(1);
+      await repository.store({ ad: "http://google.com", type: "load" });
 
-    const report = await repository.getDailyReport(timestamp);
+      const report = await repository.getDailyReport(timestamp);
 
-    assert.deepStrictEqual(report, {
-      "http://goodreads.com": { load: 1 },
-      "http://twitter.com": { load: 1, click: 1 },
+      assert.deepStrictEqual(report, {
+        "http://goodreads.com": { load: 1 },
+        "http://twitter.com": { load: 1, click: 1 },
+      });
     });
   });
-});

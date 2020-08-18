@@ -8,7 +8,7 @@ const trackingModule = async (clock) => {
   const repository = eventRepository({
     db,
     clock,
-    batchSize: process.env.INFLUX_BATCH
+    batchSize: process.env.INFLUX_BATCH,
   });
   const controller = trackingController({ eventRepository: repository, clock });
   return trackingRouter(controller);
